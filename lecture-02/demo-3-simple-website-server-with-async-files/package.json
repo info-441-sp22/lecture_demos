@@ -1,0 +1,15 @@
+{
+  "name": "demo-2-simplest-server",
+  "version": "1.0.0",
+  "description": "the simplest server",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Kyle",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.2",
+    "fs": "0.0.1-security"
+  }
+}
