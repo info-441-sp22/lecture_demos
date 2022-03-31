@@ -1,21 +1,17 @@
+const fs = require('fs')
 const express = require('express')
 const app = express()
 
 app.get('/', (req, res) => {
   res.type('html')
-  res.send('<html>' +
-    '<head>' +
-      '<link rel="stylesheet" href="style.css">' +
-    '</head>' +
-    '<body>' +
-      '<h1>Hello World! This is a very simple website!</h1>' +
-    '</body>' +
-    '</html>')
+  let fileContents = fs.readFileSync("index.html")
+  res.send(fileContents)
 })
 
 app.get('/style.css', (req, res) => {
   res.type('css')
-  res.send('h1 {background-color: red;}')
+  let fileContents = fs.readFileSync("style.css")
+  res.send(fileContents)
 })
 
 app.listen(3000, () => {
