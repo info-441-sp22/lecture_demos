@@ -2,7 +2,7 @@ async function personSearch(){
     document.getElementById("results").innerText = "Loading...";
     let nameSearch = document.getElementById("nameSearchBox").value
     try{
-        let personResponse = await fetch("/db/person?nameSearch=" + nameSearch)
+        let personResponse = await fetch("/api/person?nameSearch=" + nameSearch)
         let people = await personResponse.text();
 
         document.getElementById("results").innerText = people;
