@@ -1,0 +1,98 @@
+<html>
+
+<head>
+  <title>Person Search (Bad Sql Code Example)</title>
+  <link rel="stylesheet" href="/stylesheets/style.css">
+  <script src="javascripts/index.js"></script>
+</head>
+
+<body>
+  <h1>Person Search (Bad Sql Code Example)</h1>
+  <p>Enter first name to search (e.g., Kyle): 
+      <input type="text" id="nameSearchBox" /> 
+      <button onclick="personSearch()">Search</button>
+  </p>
+  <h3>Search Results</h3>
+  <p id="results">
+  </p>
+  <hr>
+  
+  <h2>Your tasks</h2>
+  <h2>Task 1</h2>
+  <p>Carefully craft a search name that circumvents the internal sql code
+    to get the list of all names.</p>
+  <p>To do this, have your search name cause sql select statement's WHERE clause to always be true</p>
+  
+  <h3>What you should know about the code:</h3>
+  <p>Table creation code:</p>
+  <pre>db.run('CREATE TABLE people(first_name text, last_name text'))</pre>
+  <p>API handler for the person route:</p>
+  <pre>router.get('/person', function(req, res, next) {
+    let nameSearch = req.query.nameSearch ? req.query.nameSearch : ""
+    <strong>db.all(`SELECT * FROM people WHERE first_name = "${nameSearch}"`</strong>, (err, allRows) => {
+      if (err){
+        res.send("db error" + err);
+      }
+      let matchingPeople = allRows.map(row => <strong>`${row.first_name} ${row.last_name}`</strong>).join("\n");
+      res.send(matchingPeople);
+    });
+  });</pre>
+
+  <h3>Other helpful info</h3>
+  <ul>
+  <li>Anything in a line after a "<code>--</code>" is considered a comment</li>
+  <li>The syntax for a SELECT statment in sql is:</li>
+  <ul><li><pre>SELECT col_name, another_col_name FROM table_name</pre></li></ul>
+  <li>SELECTs can have WHERE conditions combined with AND and OR:</li>
+  <ul><li><pre>SELECT col_name FROM table_name WHERE col_name > 3 AND col_name < 5</pre></li></ul>
+</ul>
+
+  <h3>To see the answer</h3>
+  <p>After you have tried yourself, you can find the answer below in an html comment. You'll have to view source or use the inspector to see it.</p>
+  <!--
+    Kyle" OR 1 = 1 --
+  -->
+
+  <h2>Task 2</h2>
+  <p>Carefully craft a search name that circumvents the internal sql code to get the data out of the secret_table.</p>
+  <p>To do this, have your search name cause the server to select from the secret_table and add it to your currnet results:</p>
+  
+  <p>There may be other ways of messing this up, please restrict yourself to trying to get the info from the secret_table.</p>
+  
+  <h3>What you should know about the code:</h3>
+  <p>Table creation code:</p>
+  <pre>db.run('CREATE TABLE secret_table(message text)')</pre>
+  <pre>db.run('CREATE TABLE people(first_name text, last_name text'))</pre>
+  <p>API handler for the person route:</p>
+  <pre>router.get('/person', function(req, res, next) {
+    let nameSearch = req.query.nameSearch ? req.query.nameSearch : ""
+    <strong>db.all(`SELECT * FROM people WHERE first_name = "${nameSearch}"`</strong>, (err, allRows) => {
+      if (err){
+        res.send("db error" + err);
+      }
+      let matchingPeople = allRows.map(row => <strong>`${row.first_name} ${row.last_name}`</strong>).join("\n");
+      res.send(matchingPeople);
+    });
+  });</pre>
+
+  <h3>Other helpful info</h3>
+  <ul>
+  <li>Anything in a line after a "<code>--</code>" is considered a comment</li>
+  <li>The syntax for a SELECT statment in sql is:</li>
+  <ul><li><pre>SELECT col_name, another_col_name FROM table_name</pre></li></ul>
+  <li>SELECTs can rename the column results come back with AS:</li>
+  <ul><li><pre>SELECT col_name AS renamed_result FROM table_name</pre></li></ul>
+  <li>SELECT queries can be tied together with UNION:</li>
+  <ul><li><pre>SELECT a FROM table1 UNION select b AS a FROM table2</pre></li></ul>
+  <li>Instead of a column name from a select, you can put a value</li>
+  <ul><li><pre>SELECT "hello" from table1</pre> (this will return copies of the string "hello")</li></ul>
+</ul>
+
+  <h3>To see the answer</h3>
+  <p>After you have tried yourself, you can find the answer below in an html comment. You'll have to view source or use the inspector to see it.</p>
+  <!--
+    Kyle" UNION SELECT message AS first_name, "" AS last_name FROM secret_table --
+  -->
+</body>
+
+</html>
