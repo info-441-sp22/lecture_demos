@@ -20,6 +20,25 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(function(req, res, next) {
+    console.log("This is the first additional middleware I added!")
+    next();
+})
+
+app.use(function(req, res, next) {
+    console.log("Second middleware, where I save a value!")
+    //modify request by adding a field to it
+    req.testValue = 3;
+    next();
+})
+
+app.use(function(req, res, next) {
+    console.log(
+        "third middle, where I see the value of req.testValue is " + 
+        req.testValue)
+    next();
+})
+
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
