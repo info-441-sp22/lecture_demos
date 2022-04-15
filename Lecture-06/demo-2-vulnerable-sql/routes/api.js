@@ -6,7 +6,9 @@ router.get('/person', function(req, res, next) {
   let nameSearch = req.query.nameSearch;
   nameSearch = nameSearch ? nameSearch : "" // make sure it is at least an empty string 
   
-  //query the database for names that match the nameSearc
+  //query the database for names that match the nameSearch
+  // To fix make the line:
+  //    req.db.all(`SELECT * FROM people WHERE first_name = ?`, nameSearch,
   req.db.all(`SELECT * FROM people WHERE first_name = "${nameSearch}"`, 
     (err, allRows) => {
         if(err) {
