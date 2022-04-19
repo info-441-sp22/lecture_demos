@@ -5,17 +5,25 @@ var router = express.Router();
 /* POST users listing. */
 router.post('/', async function(req, res, next) {
   console.log(req.body)
-  
-  await fs.writeFile("data/userData.json", JSON.stringify(req.body))
+  try{
+    const newUser = new req.models.User({
+      first_name: req.body.first_name,
+      last_name: req.body.last_name,
+      favorite_ice_cream: req.body.favorite_ice_cream
+    })
 
-  res.send('success');
+    await newUser.save()
+
+    res.send('success');
+  } catch(error){
+    res.send("error info:" + error)
+  }
 });
 
 /* GET users listing. */
 router.get('/', async function(req, res, next) {
-  let userInfo = await fs.readFile("data/userData.json")
-  res.type("json")
-  res.send(userInfo);
+  let allUsers = await req.models.User.find()
+  res.json(allUsers);
 });
 
 
