@@ -9,7 +9,7 @@ router.get('/person', function(req, res, next) {
   //query the database for names that match the nameSearch
   // To fix make the line:
   //    req.db.all(`SELECT * FROM people WHERE first_name = ?`, nameSearch,
-  req.db.all(`SELECT * FROM people WHERE first_name = "${nameSearch}"`, 
+  req.db.all(`SELECT * FROM people WHERE first_name = '${nameSearch}'`, 
     (err, allRows) => {
         if(err) {
             console.log("db error: " + err)
@@ -20,6 +20,7 @@ router.get('/person', function(req, res, next) {
             res.send("")
             return;
         }
+        console.log(allRows)
         let matching_names = allRows.map(row => {
             return `${row.first_name} ${row.last_name}`
         }).join("\n")
