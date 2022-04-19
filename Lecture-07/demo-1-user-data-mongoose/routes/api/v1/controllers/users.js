@@ -3,7 +3,7 @@ import {promises as fs} from "fs";
 var router = express.Router();
 
 /* POST users listing. */
-router.post('/addUserData', async function(req, res, next) {
+router.post('/', async function(req, res, next) {
   console.log(req.body)
   
   await fs.writeFile("data/userData.json", JSON.stringify(req.body))
@@ -12,7 +12,7 @@ router.post('/addUserData', async function(req, res, next) {
 });
 
 /* GET users listing. */
-router.get('/getUserData', async function(req, res, next) {
+router.get('/', async function(req, res, next) {
   let userInfo = await fs.readFile("data/userData.json")
   res.type("json")
   res.send(userInfo);
