@@ -18,3 +18,14 @@ async function login(){
     let responesText = await response.text();
     document.getElementById("results").innerText = responesText;
 }
+
+async function logout(){
+    let response = await fetch(
+        '/users/logout',
+        {
+            method: "POST"
+        }
+    )
+    let responesText = await response.text();
+    document.getElementById("results").innerText = responesText;
+}
