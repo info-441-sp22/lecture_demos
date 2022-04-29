@@ -11,6 +11,7 @@
     "debug": "~2.6.9",
     "express": "~4.16.1",
     "express-session": "^1.17.2",
+    "microsoft-identity-express": "github:azure-samples/microsoft-identity-express",
     "morgan": "~1.9.1"
   }
 }

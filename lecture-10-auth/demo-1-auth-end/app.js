@@ -3,6 +3,20 @@ import path from 'path';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 import sessions from 'express-session'
+import msIdExpress from 'microsoft-identity-express'
+const appSettings = {
+    appCredentials: {
+        clientId:  "Client ID HERE",
+        tenantId:  "Tenant ID (directory Id) here",
+        clientSecret:  "Client secret here"
+    },	
+    authRoutes: {
+        redirect: "http://localhost:3000/redirect", //note: you can explicitly make this "localhost:3000/redirect" or "examplesite.me/redirect"
+        error: "/error", // the wrapper will redirect to this route in case of any error.
+        unauthorized: "/unauthorized" // the wrapper will redirect to this route in case of unauthorized access attempt.
+    }
+};
+
 
 import indexRouter from './routes/index.js';
 import usersRouter from './routes/users.js';
@@ -26,9 +40,21 @@ app.use(sessions({
     cookie: {maxAge: oneDay},
     resave: false
 }))
+const msid = new msIdExpress.WebAppAuthClientBuilder(appSettings).build();
+app.use(msid.initialize());
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+
+app.get('/signin',
+    msid.signIn({postLoginRedirect: '/'})
+)
+
+app.get('/signout',
+    msid.signOut({postLogoutRedirect: '/'})
+)
+
 
 export default app;
