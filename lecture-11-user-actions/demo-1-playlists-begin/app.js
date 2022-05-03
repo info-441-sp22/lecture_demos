@@ -4,6 +4,8 @@ import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 
 import indexRouter from './routes/index.js';
+import apiv1Router from './routes/api/v1/apiv1.js'
+import models from './models.js'
 
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
@@ -19,6 +21,12 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use((req, res, next) => {
+    req.models = models
+    next();
+})
+
 app.use('/', indexRouter);
+app.use('/api/v1', apiv1Router)
 
 export default app;
