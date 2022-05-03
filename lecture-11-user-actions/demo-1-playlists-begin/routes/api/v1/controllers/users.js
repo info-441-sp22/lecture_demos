@@ -19,5 +19,35 @@ router.post("/", async (req, res, next) => {
     res.json({status: 'success'})
 })
 
+router.delete("/", async (req, res, next) =>{
+    // get info from request
+    let userId = req.body.userId
+
+    // delete the user, but first delete playlists for it
+    await req.models.Playlist.deleteMany({user: userId})
+    await req.models.User.deleteOne({_id: userId})
+
+    res.json({status: "success"})
+})
+
+router.post('/bands', async (req, res, next) => {
+    // get info from the request
+    let userId = req.body.userId
+    let bandToAdd = req.body.band
+    
+    // find the right user
+    let user = await req.models.User.findById(userId)
+
+    // update the favorite bands
+    if(!user.favorite_bands.includes(bandToAdd)){
+        user.favorite_bands.push(bandToAdd)
+    }
+
+    // save
+    await user.save()
+    
+    res.send({status:'success'})
+})
+
 
 export default router
