@@ -11,6 +11,7 @@
     "debug": "~2.6.9",
     "express": "~4.16.1",
     "express-session": "^1.17.2",
+    "memory-cache": "^0.2.0",
     "mongoose": "^6.0.11",
     "morgan": "~1.9.1",
     "stripe": "^9.0.0"
