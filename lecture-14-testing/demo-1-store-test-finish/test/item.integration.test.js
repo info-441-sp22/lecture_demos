@@ -11,7 +11,7 @@ import app from '../app.js'
 describe('Items integration test (with database)', () => {
     before(async function () {
         // pause to make sure the database is connected before the tests start
-        return new Promise(resolve => setTimeout(resolve, 4000));
+        return await new Promise(resolve => setTimeout(resolve, 4000));
     });
     
     it('should get items from the db for a GET items request', async () => {
