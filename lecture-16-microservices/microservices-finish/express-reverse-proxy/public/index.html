@@ -1,0 +1,37 @@
+<html>
+
+<head>
+  <title>Express</title>
+  <link rel="stylesheet" href="/stylesheets/style.css">
+  <script>
+    async function double(){
+      let num = document.getElementById("double_input").value
+      let results = await fetch("/api/double?num=" + num)
+      let resultsText = await results.text()
+      document.getElementById("double_results").innerText = resultsText
+    }
+
+    async function square(){
+      let num = document.getElementById("square_input").value
+      let results = await fetch("/api/square?num=" + num)
+      let resultsText = await results.text()
+      document.getElementById("square_results").innerText = resultsText
+    }
+  </script>
+</head>
+
+<body>
+  <h1>Demo microservices</h1>
+  <h2>Double a number</h2>
+  <input typ="number" id="double_input" />
+  <button onclick="double()">Double!</button>
+  <div id="double_results"></div>
+
+  <h2>Square a number</h2>
+  <input typ="number" id="square_input" />
+  <button onclick="square()">Square!</button>
+  <div id="square_results"></div>
+
+</body>
+
+</html>
