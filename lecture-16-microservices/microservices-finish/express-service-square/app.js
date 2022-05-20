@@ -23,4 +23,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
+app.get('/api/square', (req, res) => {
+    let num = req.query.num
+    let squared = num * num
+    res.send("" + squared)
+})
+
+
 export default app;

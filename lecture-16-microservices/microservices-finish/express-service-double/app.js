@@ -23,4 +23,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
+app.get('/api/double', (req, res) => {
+    let num = req.query.num
+    let doubled = num * 2
+    res.send("" + doubled)
+})
+
 export default app;
