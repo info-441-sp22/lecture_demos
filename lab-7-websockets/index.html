@@ -1,0 +1,48 @@
+<html>
+<head>
+    <script>
+        const socketURL = "ws://localhost:3000/chatSocket"
+        let webSocket = new WebSocket(socketURL)
+
+        function sendChat() {
+            let chatMesg = document.getElementById("textInput").value
+            // webSocket.send(chatMesg)
+
+            // (ADDED CODE) instead of sending chat message we will send as JSON format string
+            webSocket.send(JSON.stringify({
+                action: 'sendChat',
+                value: chatMesg
+            }));
+        }
+
+        // (ADDED CODE) add an updateName function
+        function updateName() {
+            let nameValue = document.getElementById("nameInput").value
+            // websocket will send the data as a JSON format string to the server side
+            // so that means in app.js (the server side code) we would need to use parse the json
+            webSocket.send(JSON.stringify({
+                action: "updateName",
+                value: nameValue
+            }));
+        }
+
+        webSocket.onmessage = (event) => {
+            const msg = event.data
+            document.getElementById("output").innerText += msg + "\n"
+        }
+    </script>
+</head>
+<body>
+    <h1>Web socket chat demo!</h1>
+
+    <!-- (ADDED CODE) so we can update name of webSocket -->
+    <input type="text" id="nameInput">
+    <button id="nameBtn" onclick="updateName()">Update Name</button><br>
+
+    <input type="text" id="textInput" />
+    <button id="sendBtn" onclick="sendChat()">send</button>
+
+    <h3>chat history</h3>
+    <div id = "output"></div>
+</body>
+</html>
