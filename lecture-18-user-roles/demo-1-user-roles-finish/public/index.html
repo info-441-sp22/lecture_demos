@@ -1,0 +1,25 @@
+<html>
+
+<head>
+  <title>Commenting site</title>
+  <link rel="stylesheet" href="/stylesheets/style.css">
+  <script src="javascripts/index.js"></script>
+</head>
+
+<body onload="init()">
+  <h1>Commenting site</h1>
+
+  <h3>login</h3>
+  <a href="signin">Log in</a> <br>
+  <a href="signout">Log out</a>
+  <div id="userInfo"></div>
+
+  
+  <h2>Comments:</h2>
+  <button onclick="loadComments()">Refresh</button>
+  <div id="commentsBox"></div>
+  <input type="text" id="comment_input" />
+  <button onclick="postComment()">Post Comment</button>
+</body>
+
+</html>
