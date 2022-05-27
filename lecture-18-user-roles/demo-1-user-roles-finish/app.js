@@ -9,7 +9,7 @@ const appSettings = {
         clientId:  "Client ID HERE",
         tenantId:  "Tenant ID (directory Id) here",
         clientSecret:  "Client secret here"
-    },
+    },	
     authRoutes: {
         redirect: "http://localhost:3000/redirect", //note: you can explicitly make this "localhost:3000/redirect" or "examplesite.me/redirect"
         error: "/error", // the wrapper will redirect to this route in case of any error.
